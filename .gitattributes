@@ -79,3 +79,17 @@
 ## Exclude files from exporting
 .gitattributes export-ignore
 .gitignore     export-ignore
+
+* linguist-generated
+lab01/ -diff
+lab02/ -diff
+lab03/ -diff
+lab04/ -diff
+lab05/ -diff
+lab06/ -diff
+lab07/ -diff
+lab08/ -diff
+lab09/ -diff
+lab010/ -diff
+lab011/ -diff
+lab012/ -diff
