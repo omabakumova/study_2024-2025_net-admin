@@ -108,3 +108,16 @@ git clone --recursive https://github.com/yamadharma/course-directory-student-tem
     git commit -am 'feat(main): make course structure'
     git push
     ```
+    ## Лабораторные работы (правильный порядок)
+    1. [lab01](lab01)  
+    2. [lab02](lab02)
+    3. [lab03](lab03)
+    4. [lab04](lab04)
+    5. [lab05](lab05)
+    6. [lab06](lab06)
+    7. [lab07](lab07)
+    8. [lab08](lab08)
+    9. [lab09](lab09)
+    10. [lab010](lab010)
+    11. [lab011](lab011)
+    12. [lab012](lab012)
