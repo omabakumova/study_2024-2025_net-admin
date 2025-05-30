@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru-RU" xml:lang="ru-RU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Абакумова О. М." />
+  <title>Лабораторная работа № 16. Настройка VPN</title>
+  <style>
+    html {
+      font-family: Open Sans Light;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Лабораторная работа № 16. Настройка VPN</h1>
+<p class="author">Абакумова О. М.</p>
+</header>
+<h1 id="информация">Информация</h1>
+<h2 id="докладчик">Докладчик</h2>
+<div class="columns" data-align="center">
+<div class="column" style="width:70%;">
+<ul>
+<li>Абакумова Олеся Максимовна</li>
+<li>Студентка</li>
+<li>Российский университет дружбы народов</li>
+<li>1132220832@pfur.ru</li>
+<li><a href="https://github.com/omabakumova"
+class="uri">https://github.com/omabakumova</a></li>
+</ul>
+</div><div class="column" style="width:30%;">
+<p><img src="./image/abakumova.png" /></p>
+</div>
+</div>
+<h1 id="цель-работы">Цель работы</h1>
+<p>Получение навыков настройки VPN-туннеля через незащищённое Интернет-
+соединение.</p>
+<h1 id="предварительные-сведения">Предварительные сведения</h1>
+<p><strong>Виртуальная частная сеть (Virtual Private Network,
+VPN)</strong> — технология, обеспечивающая одно или несколько сетевых
+соединений поверх другой сети (например, Интернет).</p>
+<h1 id="модельные-предположения">Модельные предположения</h1>
+<table>
+<caption>Адреса туннеля VPN</caption>
+<thead>
+<tr>
+<th>IP-адреса</th>
+<th>Примечание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.128.255.252/30</td>
+<td>Линк VPN</td>
+</tr>
+<tr>
+<td>10.128.255.253</td>
+<td>msk-donskaya-gw-1</td>
+</tr>
+<tr>
+<td>10.128.255.254</td>
+<td>pisa-unipi-gw-1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="модельные-предположения-1">Модельные предположения</h2>
+<table>
+<caption>Адреса интерфейсов loopback</caption>
+<thead>
+<tr>
+<th>IP-адреса</th>
+<th>Примечание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.128.254.0/24</td>
+<td>Сеть адресов loopback интерфейсов</td>
+</tr>
+<tr>
+<td>10.128.254.1/32</td>
+<td>msk-donskaya-gw-1</td>
+</tr>
+<tr>
+<td>10.128.254.2/32</td>
+<td>msk-q42-gw-1</td>
+</tr>
+<tr>
+<td>10.128.254.3/32</td>
+<td>msk-hostel-gw-1</td>
+</tr>
+<tr>
+<td>10.128.254.4/32</td>
+<td>sch-sochi-gw-1</td>
+</tr>
+<tr>
+<td>10.128.254.5/32</td>
+<td>pisa-unipi-gw-1</td>
+</tr>
+</tbody>
+</table>
+<h1 id="задание">Задание</h1>
+<ol type="1">
+<li>Настроить VPN-туннель между сетью Университета г. Пиза (Италия) и
+сетью «Донская» в г. Москва</li>
+<li>При выполнении работы необходимо учитывать соглашение об
+именовании.</li>
+</ol>
+<h1 id="выполнение-лабораторной-работы">Выполнение лабораторной
+работы</h1>
+<h2 id="настройка-площадки-в-г.-пиза">Настройка площадки в г. Пиза</h2>
+<figure id="fig:001">
+<img src="image/1.png" style="width:50.0%"
+alt="Устройства площадки г. Пиза" />
+<figcaption aria-hidden="true">Устройства площадки г. Пиза</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-1">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:002">
+<img src="image/2.png" style="width:50.0%"
+alt="Замена модулей на internet-omabakumova-mc-2" />
+<figcaption aria-hidden="true">Замена модулей на
+internet-omabakumova-mc-2</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-2">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:003">
+<img src="image/3.png" style="width:50.0%"
+alt="Замена модулей на pisa-unipi-omabakumova-mc-1" />
+<figcaption aria-hidden="true">Замена модулей на
+pisa-unipi-omabakumova-mc-1</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-3">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:004">
+<img src="image/4.png" style="width:50.0%" alt="Схема г. Пиза" />
+<figcaption aria-hidden="true">Схема г. Пиза</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-4">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:005">
+<img src="image/5.png" style="width:50.0%" alt="Создание г. Пиза" />
+<figcaption aria-hidden="true">Создание г. Пиза</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-5">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:006">
+<img src="image/6.png" style="width:50.0%"
+alt="Пример перемещени устройства в г. Пиза" />
+<figcaption aria-hidden="true">Пример перемещени устройства в г.
+Пиза</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-6">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:007">
+<img src="image/7.png" style="width:50.0%"
+alt="Перемещение оконечного устройства" />
+<figcaption aria-hidden="true">Перемещение оконечного
+устройства</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-7">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:008">
+<img src="image/8.png" style="width:50.0%"
+alt="Вид перемещенных устройств в г. Пиза" />
+<figcaption aria-hidden="true">Вид перемещенных устройств в г.
+Пиза</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-8">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:009">
+<img src="image/9.png" style="width:50.0%"
+alt="Вид схемы после перемещения" />
+<figcaption aria-hidden="true">Вид схемы после перемещения</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-9">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:010">
+<img src="image/10.png" style="width:50.0%"
+alt="Первоначальная настройка маршрутизатора pisa-unipi-omabakumova-gw-1" />
+<figcaption aria-hidden="true">Первоначальная настройка маршрутизатора
+pisa-unipi-omabakumova-gw-1</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-10">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:011">
+<img src="image/11.png" style="width:50.0%"
+alt="Первоначальная настройка маршрутизатора pisa-unipi-omabakumova-sw-1" />
+<figcaption aria-hidden="true">Первоначальная настройка маршрутизатора
+pisa-unipi-omabakumova-sw-1</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-11">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:012">
+<img src="image/12.png" style="width:50.0%"
+alt="Настрйока интерфейсов на маршрутизаторе pisa-unipi-omabakumova-gw-1" />
+<figcaption aria-hidden="true">Настрйока интерфейсов на маршрутизаторе
+pisa-unipi-omabakumova-gw-1</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-12">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:013">
+<img src="image/13.png" style="width:50.0%"
+alt="Настройка интерфейсов на коммутаторе pisa-unipi-omabakumova-sw-1" />
+<figcaption aria-hidden="true">Настройка интерфейсов на коммутаторе
+pisa-unipi-omabakumova-sw-1</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-13">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:014">
+<img src="image/14.png" style="width:50.0%"
+alt="Добавление шлюза на pc-unipi-omabakumova-1" />
+<figcaption aria-hidden="true">Добавление шлюза на
+pc-unipi-omabakumova-1</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-14">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:015">
+<img src="image/15.png" style="width:50.0%"
+alt="Добавление адреса на pc-unipi-omabakumova-1" />
+<figcaption aria-hidden="true">Добавление адреса на
+pc-unipi-omabakumova-1</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-15">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:016">
+<img src="image/16.png" style="width:50.0%"
+alt="Создание здания “University” в г. Пиза" />
+<figcaption aria-hidden="true">Создание здания “University” в г.
+Пиза</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-16">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:017">
+<img src="image/17.png" style="width:50.0%"
+alt="Перемещение устройств в г. Пиза в здание" />
+<figcaption aria-hidden="true">Перемещение устройств в г. Пиза в
+здание</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-17">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:018">
+<img src="image/18.png" style="width:50.0%"
+alt="Пинговние с маршрутизатора pisa-unipi-omabakumova-gw-1" />
+<figcaption aria-hidden="true">Пинговние с маршрутизатора
+pisa-unipi-omabakumova-gw-1</figcaption>
+</figure>
+<h2 id="настройка-площадки-в-г.-пиза-18">Настройка площадки в г.
+Пиза</h2>
+<figure id="fig:019">
+<img src="image/19.png" style="width:25.0%"
+alt="Пингование с оконечного устройства pc-unipi-omabakumova-1 в г. Пиза" />
+<figcaption aria-hidden="true">Пингование с оконечного устройства
+pc-unipi-omabakumova-1 в г. Пиза</figcaption>
+</figure>
+<h2 id="настройка-vpn-на-основе-gre">Настройка VPN на основе GRE</h2>
+<figure id="fig:020">
+<img src="image/20.png" style="width:50.0%"
+alt="Настройка VPN на маршрутизаторе pisa-unipi-omabakumova-gw-1" />
+<figcaption aria-hidden="true">Настройка VPN на маршрутизаторе
+pisa-unipi-omabakumova-gw-1</figcaption>
+</figure>
+<h2 id="настройка-vpn-на-основе-gre-1">Настройка VPN на основе GRE</h2>
+<figure id="fig:021">
+<img src="image/21.png" style="width:50.0%"
+alt="Настройка VPN на маршрутизаторе pisa-unipi-omabakumova-sw-1" />
+<figcaption aria-hidden="true">Настройка VPN на маршрутизаторе
+pisa-unipi-omabakumova-sw-1</figcaption>
+</figure>
+<h2 id="настройка-vpn-на-основе-gre-2">Настройка VPN на основе GRE</h2>
+<figure id="fig:022">
+<img src="image/22.png" style="width:50.0%"
+alt="Результат настройки VPN c помощью команды sh interfaces tunnel0" />
+<figcaption aria-hidden="true">Результат настройки VPN c помощью команды
+<code>sh interfaces tunnel0</code></figcaption>
+</figure>
+<h2 id="настройка-vpn-на-основе-gre-3">Настройка VPN на основе GRE</h2>
+<figure id="fig:023">
+<img src="image/23.png" style="width:50.0%" alt="Пингование сети" />
+<figcaption aria-hidden="true">Пингование сети</figcaption>
+</figure>
+<h1 id="выводы">Выводы</h1>
+<p>В процессе выполнения лабораторной работы я получила навыки настройки
+VPN-туннеля через незащищённое Интернет- соединение.</p>
+</body>
+</html>
